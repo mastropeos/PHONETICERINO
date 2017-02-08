@@ -46,7 +46,7 @@ namespace DoItPleae
             _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("upload")) { Name = "uploadGrammar" });
             _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("jiji")) { Name = "jijiGrammar" });
             _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("cut")) { Name = "cutGrammar" });
-            _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("abort")) { Name = "abortGrammar" });
+            _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("cancel")) { Name = "cancelGrammar" });
             _recognizer.SpeechRecognized += _recognizer_SpeechRecognized;
             _recognizer.SetInputToDefaultAudioDevice(); // set the input of the speech recognizer to the default audio device
             _recognizer.RecognizeAsync(RecognizeMode.Multiple); // recognize speech asynchronous
@@ -81,7 +81,7 @@ namespace DoItPleae
                 case "cut":
                     doshutdown();
                     break;
-                case "abort":
+                case "cancel":
                     doabort();
                     break;
             }
@@ -120,15 +120,12 @@ namespace DoItPleae
         }
         private static void doshutdown()
         {
-            string strCmdText;
-            strCmdText = "shutdown -s -t 10";
-            System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+            Process.Start("shutdown", "/s");
         }
         private static void doabort()
         {
-            string strCmdText;
-            strCmdText = "shutdown -a";
-            System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+            Process.Start("shutdown", "/a");
+
         }
 
     }
