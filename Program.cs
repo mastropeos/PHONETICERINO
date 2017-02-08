@@ -24,6 +24,7 @@ namespace DoItPleae
         }
 
         static ManualResetEvent _completed = null;
+        private static string strCmdText;
 
         public static void Main(string[] args)
         {
@@ -44,6 +45,7 @@ namespace DoItPleae
             _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("simiosi")) { Name = "simiosiGrammar" });
             _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("upload")) { Name = "uploadGrammar" });
             _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("jiji")) { Name = "jijiGrammar" });
+            _recognizer.LoadGrammar(new Grammar(new GrammarBuilder("cut")) { Name = "cutGrammar" });
             _recognizer.SpeechRecognized += _recognizer_SpeechRecognized;
             _recognizer.SetInputToDefaultAudioDevice(); // set the input of the speech recognizer to the default audio device
             _recognizer.RecognizeAsync(RecognizeMode.Multiple); // recognize speech asynchronous
@@ -74,6 +76,9 @@ namespace DoItPleae
                     break;
                 case "jiji":
                     doopgg();
+                    break;
+                case "cut":
+                    doshutdown();
                     break;
             }
 
@@ -108,6 +113,12 @@ namespace DoItPleae
         {
             Process.Start("https://eune.op.gg");
             Console.WriteLine("{0} : OP.GG Redirecting", DateTime.Now.ToShortTimeString());
+        }
+        private static void doshutdown()
+        {
+            System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+            strCmdText = "shutdown -s -f -t 10";
+
         }
 
     }
