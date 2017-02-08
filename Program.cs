@@ -24,7 +24,6 @@ namespace DoItPleae
         }
 
         static ManualResetEvent _completed = null;
-        private static string strCmdText;
 
         public static void Main(string[] args)
         {
@@ -125,7 +124,6 @@ namespace DoItPleae
         private static void doabort()
         {
             Process.Start("shutdown", "/a");
-
         }
 
     }
